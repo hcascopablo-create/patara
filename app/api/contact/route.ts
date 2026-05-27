@@ -3,24 +3,18 @@ import { Resend } from "resend";
 console.log("API KEY:");
 console.log(process.env.RESEND_API_KEY);
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
-
   try {
-
     const body = await req.json();
 
     const { nombre, email, destino } = body;
 
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     await resend.emails.send({
-
       from: "onboarding@resend.dev",
-
       to: "hcascopablo@gmail.com",
-
       subject: "Nueva reserva Patara",
-
       html: `
         <h1>Nueva reserva</h1>
 
@@ -35,13 +29,10 @@ export async function POST(req: Request) {
     });
 
   } catch (error) {
-
     console.log(error);
 
     return Response.json({
       success: false,
     });
-
   }
-
 }
